@@ -35,14 +35,9 @@ import { useStores } from "../stores/rootStore"; ////
 // const TodoListItemsObserver = observer(TodoListItems);
 
 const TodoList = () => {
-  const { todosStore, searchStore } = useStores();
-  // const todoListItems =
-  //   todosStore.todos.map((todo: Todo) => {
-  //     return <ToDoListItem key={todo.id} todo={todo} />
-  //   })
-
-  const todoListItems = (todosArray: Todo[]) =>
-    todosArray.map((todo: Todo) => {
+  const { todosStore } = useStores();
+  const todoListItems =
+    todosStore.searchTodos().map((todo: Todo) => {
       return <ToDoListItem key={todo.id} todo={todo} />
     })
 
@@ -50,12 +45,7 @@ const TodoList = () => {
     <>
       {/* <TodoListItemsObserver /> */}
       <div className="todo-list" data-testid="todo-list">
-        {/* {todoListItems} */}
-        {
-          !searchStore.searchQuery
-            ? todoListItems(todosStore.todos)
-            : todoListItems(todosStore.searchResults)
-        }
+        {todoListItems}
       </div>
     </>
   );

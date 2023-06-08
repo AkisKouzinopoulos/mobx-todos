@@ -76,7 +76,8 @@ test.describe("New Todo", () => {
       .getByTestId("todo-list")
       .locator("div")
       .filter({ hasText: "Get dinner fixingsIs done: No" })
-      .locator("label div")
+      .getByTestId("todo-checkbox")
+      .locator("span")
       .click();
     await expect(
       page.locator(".todo-list > div.todo-item:nth-child(1)")

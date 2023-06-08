@@ -1,5 +1,5 @@
 import { makeAutoObservable, observable, makeObservable, action } from "mobx";
-
+import searchStore from "./searchStore";
 // Standard interface and functions
 export interface Todo {
   id: number;
@@ -127,12 +127,20 @@ class TodosStore {
     return filteredTodos;
   }
 
-  searchTodos(searchTerm: string): void {
-    const searchText = searchTerm.toLowerCase();
+  // searchTodos(searchTerm: string): void {
+  searchTodos() {
+    // const searchText = searchTerm.toLowerCase();
+    const searchText = searchStore.searchQuery.toLowerCase();
 
-    this.searchResults = this.todos.filter((todo) =>
+    const searchResults = this.todos.filter((todo) =>
       todo.text.toLowerCase().includes(searchText)
     );
+
+    if (!searchText) {
+      return this.todos;
+    }
+
+    return searchResults;
   }
 }
 
